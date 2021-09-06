@@ -118,11 +118,13 @@ public extension Dispatcher {
         handlersQueue.remove(handler, from: group)
     }
 }
-
+#if compiler(>=5.5)
+import _NIOConcurrency
+#endif
 private extension Dispatcher {
     func submit(update: Update) {
         handlersQueue.next(for: update).forEach { (handler) in
-            worker.next().execute {
+            worker.next().execute { [self] in
                 #if compiler(>=5.5)
                 if #available(macOS 12.0, iOS 15.0, watchOS 8.0, tvOS 15.0, *) {
                     Task {

@@ -29,7 +29,8 @@ let package = Package(
             dependencies: [
                 .product(name: "AsyncHTTPClient", package: "async-http-client"),
                 .product(name: "Logging", package: "swift-log"),
-                .target(name: "TelegrammerMultipart")
+                .target(name: "TelegrammerMultipart"),
+                    .product(name: "_NIOConcurrency", package: "swift-nio"),
             ]
         ),
         .target(name: "TelegrammerCMultipartParser"),
